@@ -89,6 +89,8 @@ class _MyHomePageState extends State<MyHomePage> {
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
           // Column is also a layout widget. It takes a list of children and
           // arranges them vertically. By default, it sizes itself to fit its
           // children horizontally, and tries to be as tall as its parent.
@@ -102,26 +104,54 @@ class _MyHomePageState extends State<MyHomePage> {
           // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
           // action in the IDE, or press "p" in the console), to see the
           // wireframe for each widget.
-          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Row(
-              children: [
-                SizedBox(width: 20),
-                Container(
-                  decoration: BoxDecoration(
-                    color: Colors.pink,
-                    borderRadius: BorderRadius.circular(75),
+            const SizedBox(height: 42),
+            Center(
+              child: Row(
+                children: [
+                  SizedBox(width: 32),
+                  Container(
+                    height: 100,
+                    width: 100,
+                    decoration: BoxDecoration(
+                      color: Colors.pink,
+                      borderRadius: BorderRadius.circular(75),
+                    ),
+                    child: Center(
+                      child: Text("Pink", style: TextStyle(fontSize: 15)),
+                    ),
                   ),
-                  height: 125,
-                  width: 125,
+                  SizedBox(width: 48),
+                  Text("starfall", style: TextStyle(fontSize: 32)),
+                ],
+              ),
+            ),
+            SizedBox(height: 36),
+            Row(),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+
+              children: [
+                Text(
+                  "BIO",
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                 ),
-                SizedBox(width: 16),
-                Text("starfall", style: TextStyle(fontSize: 32)),
+                Text(
+                  "Nama Saya Usamah Ibadurrohman",
+                  style: TextStyle(fontSize: 18),
+                ),
+                Text(
+                  "Saya seorang junior Flutter Developer",
+                  style: TextStyle(fontSize: 18),
+                ),
+                Text(
+                  "Saya tertarik untuk menjadi fullstack Dev",
+                  style: TextStyle(fontSize: 18),
+                ),
               ],
             ),
-            Text("Biru aseli  iemah"),
-            Text("kalo ie Merah aseli mang"),
-            Text("nah yang ini hejo mang"),
+            SizedBox(height: 36, width: 30),
+
             Row(
               children: [
                 Container(
@@ -129,6 +159,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   width: 125,
                   color: const Color.fromARGB(255, 255, 38, 38),
                 ),
+                SizedBox(width: 25),
                 Container(height: 100, width: 125, color: Colors.blue),
               ],
             ),
