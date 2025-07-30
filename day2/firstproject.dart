@@ -109,59 +109,65 @@ class _MyHomePageState extends State<MyHomePage> {
             Center(
               child: Row(
                 children: [
-                  SizedBox(width: 32),
+                  SizedBox(width: 31),
                   Container(
-                    height: 100,
-                    width: 100,
+                    height: 125,
+                    width: 125,
                     decoration: BoxDecoration(
                       color: Colors.pink,
                       borderRadius: BorderRadius.circular(75),
                     ),
                     child: Center(
-                      child: Text("Pink", style: TextStyle(fontSize: 15)),
+                      child: Text("Pink", style: TextStyle(fontSize: 18)),
                     ),
                   ),
                   SizedBox(width: 48),
-                  Text("starfall", style: TextStyle(fontSize: 32)),
+                  Text("starfall", style: TextStyle(fontSize: 38)),
                 ],
               ),
             ),
             SizedBox(height: 36),
-            Row(),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
 
-              children: [
-                Text(
-                  "BIO",
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                ),
-                Text(
-                  "Nama Saya Usamah Ibadurrohman",
-                  style: TextStyle(fontSize: 18),
-                ),
-                Text(
-                  "Saya seorang junior Flutter Developer",
-                  style: TextStyle(fontSize: 18),
-                ),
-                Text(
-                  "Saya tertarik untuk menjadi fullstack Dev",
-                  style: TextStyle(fontSize: 18),
-                ),
-              ],
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 32),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+
+                children: [
+                  Text(
+                    "BIO",
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  ),
+                  Text(
+                    "Nama Saya Usamah Ibadurrohman",
+                    style: TextStyle(fontSize: 18),
+                  ),
+                  Text(
+                    "Saya seorang junior Flutter Developer",
+                    style: TextStyle(fontSize: 18),
+                  ),
+                  Text(
+                    "Saya tertarik untuk menjadi fullstack Dev",
+                    style: TextStyle(fontSize: 18),
+                  ),
+                ],
+              ),
             ),
-            SizedBox(height: 36, width: 30),
+            SizedBox(height: 56),
 
-            Row(
-              children: [
-                Container(
-                  height: 100,
-                  width: 125,
-                  color: const Color.fromARGB(255, 255, 38, 38),
-                ),
-                SizedBox(width: 25),
-                Container(height: 100, width: 125, color: Colors.blue),
-              ],
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 32),
+              child: Row(
+                children: [
+                  Container(
+                    height: 100,
+                    width: 150,
+                    color: const Color.fromARGB(255, 255, 38, 38),
+                  ),
+                  SizedBox(width: 24),
+                  Container(height: 100, width: 150, color: Colors.blue),
+                ],
+              ),
             ),
           ],
         ),
