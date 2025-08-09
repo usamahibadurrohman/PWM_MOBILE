@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+// import untuk file atau halaman selain halaman utama
+import 'achievement.dart';
+import 'project.dart';
 
 const TextStyle sectionTitleStyle = TextStyle(
   fontSize: 32,
@@ -16,93 +19,37 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(title: 'My portofolio', home: const HomePage());
+    return MaterialApp(
+      title: 'My Portofolio',
+      theme: ThemeData(primarySwatch: Colors.cyan, fontFamily: 'Roboto'),
+      // membuat homepage menajdi halaman utama
+      home: const HomePage(),
+    );
   }
 }
 
-Widget buildProgressbar({
-  required String label,
-  required double percentage,
-  required Color color,
-}) {
-  return Padding(
-    padding: const EdgeInsets.symmetric(vertical: 8.0),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(label),
-        SizedBox(height: 4),
-        Stack(
-          children: [
-            Container(
-              width: 156,
-              height: 22,
-              decoration: BoxDecoration(
-                color: Colors.grey[300],
-                borderRadius: BorderRadius.circular(8),
-              ),
-            ),
-            Container(
-              width: 156 * percentage,
-              height: 22,
-              decoration: BoxDecoration(
-                color: color,
-                borderRadius: BorderRadius.circular(8),
-              ),
-            ),
-          ],
-        ),
-      ],
-    ),
-  );
-}
-
-Widget buildReverseProgressbar({
-  required String label,
-  required double percentage,
-  required Color color,
-}) {
-  return Padding(
-    padding: const EdgeInsets.symmetric(vertical: 8.0),
-    child: Directionality(
-      textDirection: TextDirection.rtl,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(label),
-          SizedBox(height: 4),
-          Stack(
-            children: [
-              Container(
-                width: 156,
-                height: 22,
-                decoration: BoxDecoration(
-                  color: Colors.black12,
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Align(
-                  alignment: Alignment.centerRight,
-                  widthFactor: percentage,
-                  child: Container(
-                    width: 156 * percentage,
-                    height: 22,
-                    decoration: BoxDecoration(
-                      color: color,
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    ),
-  );
-}
-
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  // variable untuk memilih salah satu indeks di bottomnavbar
+  int _selectedIndex = 1;
+
+  static const List<Widget> _widgetOptions = <Widget>[
+    Project(),
+    MainPortofolioPage(),
+    Achievement(),
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -118,17 +65,135 @@ class HomePage extends StatelessWidget {
         ),
         actions: [
           Padding(
-            padding: EdgeInsets.only(right: 16.0),
+            padding: const EdgeInsets.only(right: 16.0),
             child: Center(
-              child: Text("Home Page", style: TextStyle(fontSize: 20)),
+              child: Text(
+                _selectedIndex == 0
+                    ? "Project Page"
+                    : _selectedIndex == 1
+                    ? "Home Page"
+                    : "Achievement Page",
+                style: const TextStyle(fontSize: 20),
+              ),
             ),
           ),
         ],
-
         backgroundColor: const Color.fromARGB(255, 0, 255, 255),
       ),
+      body: Center(child: _widgetOptions.elementAt(_selectedIndex)),
+      // bottom navbar
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Color.fromARGB(255, 36, 36, 36),
 
-      body: Padding(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.description),
+            label: 'Project',
+          ),
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.description),
+            label: 'Achievement',
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.cyan,
+        unselectedItemColor: const Color.fromARGB(255, 224, 247, 250),
+        onTap: _onItemTapped,
+      ),
+    );
+  }
+}
+
+class MainPortofolioPage extends StatelessWidget {
+  const MainPortofolioPage({super.key});
+
+  // Fungsi-fungsi pembantu untuk membuat progress bar
+  Widget buildProgressbar({
+    required String label,
+    required double percentage,
+    required Color color,
+  }) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(label),
+          const SizedBox(height: 4),
+          Stack(
+            children: [
+              Container(
+                width: 156,
+                height: 22,
+                decoration: BoxDecoration(
+                  color: Colors.grey[300],
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ),
+              Container(
+                width: 156 * percentage,
+                height: 22,
+                decoration: BoxDecoration(
+                  color: color,
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget buildReverseProgressbar({
+    required String label,
+    required double percentage,
+    required Color color,
+  }) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Directionality(
+        textDirection: TextDirection.rtl,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(label),
+            const SizedBox(height: 4),
+            Stack(
+              children: [
+                Container(
+                  width: 156,
+                  height: 22,
+                  decoration: BoxDecoration(
+                    color: Colors.black12,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Align(
+                    alignment: Alignment.centerRight,
+                    widthFactor: percentage,
+                    child: Container(
+                      width: 156 * percentage,
+                      height: 22,
+                      decoration: BoxDecoration(
+                        color: color,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      child: Padding(
         padding: const EdgeInsets.all(24),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -142,11 +207,16 @@ class HomePage extends StatelessWidget {
                     color: Colors.cyan,
                     shape: BoxShape.circle,
                   ),
+                  child: const Icon(
+                    Icons.person,
+                    size: 80,
+                    color: Colors.white,
+                  ),
                 ),
-                SizedBox(width: 42),
+                const SizedBox(width: 42),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
+                  children: const [
                     Text(
                       "Hi i'm Usamah",
                       style: TextStyle(
@@ -163,67 +233,72 @@ class HomePage extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: 24),
-            Divider(thickness: 1.4, color: Colors.black),
-            SizedBox(height: 24),
-
+            const SizedBox(height: 24),
+            const Divider(thickness: 1.4, color: Colors.black),
+            const SizedBox(height: 24),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("Bio", style: sectionTitleStyle),
+                const Text("Bio", style: sectionTitleStyle),
                 const Text(
-                  "Saya Usamah Ibadurrohman, seorang Junior Flutter"
-                  "Developer yang memiliki ketertarikan dalam pengembangan"
-                  "Fullstack. Saya antusias terhadap teknologi  dan "
+                  "Saya Usamah Ibadurrohman, seorang Junior Flutter "
+                  "Developer yang memiliki ketertarikan dalam pengembangan "
+                  "Fullstack. Saya antusias terhadap teknologi  dan "
                   "memiiki minat khusus dalam bidang data science.",
                   style: TextStyle(fontSize: 12),
                   textAlign: TextAlign.justify,
                 ),
               ],
             ),
-            SizedBox(height: 36),
+            const SizedBox(height: 36),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("Highlight Skills", style: sectionTitleStyle),
-                Row(
+                const Text("Highlight Skills", style: sectionTitleStyle),
+                Column(
                   children: [
-                    Column(
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         buildProgressbar(
                           label: "Leadership",
                           percentage: 0.43,
                           color: const Color.fromARGB(255, 0, 207, 255),
                         ),
-                        buildProgressbar(
-                          label: "Teamwork",
-                          percentage: 0.72,
-                          color: Color.fromARGB(255, 0, 229, 176),
-                        ),
-                        buildProgressbar(
-                          label: "Problem Solving",
-                          percentage: 0.4,
-                          color: Color.fromARGB(255, 165, 102, 255),
-                        ),
-                      ],
-                    ),
-
-                    Column(
-                      children: [
                         buildReverseProgressbar(
                           label: "Flutter",
                           percentage: 0.37,
-                          color: Color.fromARGB(255, 0, 72, 255),
+                          color: const Color.fromARGB(255, 0, 72, 255),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        buildProgressbar(
+                          label: "Teamwork",
+                          percentage: 0.72,
+                          color: const Color.fromARGB(255, 0, 229, 176),
                         ),
                         buildReverseProgressbar(
                           label: "Python",
                           percentage: 0.78,
-                          color: Color.fromARGB(255, 255, 166, 0),
+                          color: const Color.fromARGB(255, 255, 166, 0),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        buildProgressbar(
+                          label: "Problem Solving",
+                          percentage: 0.4,
+                          color: const Color.fromARGB(255, 165, 102, 255),
                         ),
                         buildReverseProgressbar(
                           label: "Design",
                           percentage: 0.3,
-                          color: Color.fromARGB(255, 255, 0, 0),
+                          color: const Color.fromARGB(255, 255, 0, 0),
                         ),
                       ],
                     ),
