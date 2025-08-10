@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 // import untuk file atau halaman selain halaman utama
 import 'achievement.dart';
 import 'project.dart';
@@ -204,13 +205,10 @@ class MainPortofolioPage extends StatelessWidget {
                   width: 115,
                   height: 115,
                   decoration: const BoxDecoration(
-                    color: Colors.cyan,
                     shape: BoxShape.circle,
-                  ),
-                  child: const Icon(
-                    Icons.person,
-                    size: 80,
-                    color: Colors.white,
+                    image: const DecorationImage(
+                      image: AssetImage("assets/profile.png"),
+                    ),
                   ),
                 ),
                 const SizedBox(width: 42),
