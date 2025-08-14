@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 // import untuk file atau halaman selain halaman utama
 import 'achievement.dart';
 import 'project.dart';
@@ -81,7 +80,7 @@ class _HomePageState extends State<HomePage> {
         ],
         backgroundColor: const Color.fromARGB(255, 0, 255, 255),
       ),
-      body: Center(child: _widgetOptions.elementAt(_selectedIndex)),
+      body: _widgetOptions.elementAt(_selectedIndex),
       // bottom navbar
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Color.fromARGB(255, 36, 36, 36),
@@ -206,7 +205,7 @@ class MainPortofolioPage extends StatelessWidget {
                   height: 115,
                   decoration: const BoxDecoration(
                     shape: BoxShape.circle,
-                    image: const DecorationImage(
+                    image: DecorationImage(
                       image: AssetImage("assets/profile.png"),
                     ),
                   ),
